@@ -15,4 +15,18 @@ CHIP Mux {
 
     PARTS:
     // Put your code here:
+
+    // a*b
+    And(a=a, b=b, out=c);
+
+    // b*s
+    And(a=b, b=sel, out=d);
+
+    // ns*a
+    Not(in=sel, out=nsel);
+    And(a=nsel, b=a, out=e);
+
+    // a*b + b*s + ns*a
+    Or(a=c, b=d, out=f);
+    Or(a=e, b=f, out=out);
 }
