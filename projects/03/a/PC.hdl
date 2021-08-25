@@ -17,4 +17,20 @@ CHIP PC {
 
     PARTS:
     // Put your code here:
+
+    Inc16(in=a, out=b);
+
+    // if (inc(t-1) == true) {out(t) = out(t - 1) + 1}
+    // else {out(t) = out(t - 1)}
+    Mux16(a=a, b=b, sel=inc, out=c);
+
+    // if (load(t-1) == true) {out(t) = in(t-1)}
+    // else {out(t) = out(t - 1)}
+    Mux16(a=c, b=in, sel=load, out=d);
+
+    // if (reset(t - 1) == true) {out(t) = 0}
+    // else {out(t) = out(t - 1)}
+    Mux16(a=d, b[0..15]=false, sel=reset, out=e);
+
+    Register(in=e, load=true, out=a, out=out);
 }
